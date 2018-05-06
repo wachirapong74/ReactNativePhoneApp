@@ -5,7 +5,9 @@ import {
     Text, 
     View, 
     Button as ButtonNative,
-    AsyncStorage
+    AsyncStorage,
+    Keyboard,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
@@ -42,7 +44,22 @@ class SignInScreen extends React.Component {
 
     async resetKey() {
         try {
+            // Alert.alert(
+            //     'Confirm to Sign Out',
+            //     '',
+            //     [
+            //         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            //         { 
+            //             text: 'OK', onPress: () => {
+            //                 await AsyncStorage.removeItem('user-token');
+            //             } 
+            //         },
+            //     ],
+            //     { cancelable: false }
+            // )
+
             await AsyncStorage.removeItem('user-token');
+            
         } catch (error) {
             console.log("Error resetting data" + error);
         }
@@ -59,11 +76,12 @@ class SignInScreen extends React.Component {
     }
 
     onSubmit = (values) => {
-        // console.log('values before dispatch :', values);
-        // this.props.dispatch(signIn(values)).then(() => {
-        // })
-
-        this.props.dispatch(signIn(values))
+        this.props.dispatch(signIn(values)).then((signInSuccess) => {
+            if (signInSuccess) {
+                Keyboard.dismiss()
+                this.props.navigation.navigate('Home')
+            }
+        })
     }
     
     render() {

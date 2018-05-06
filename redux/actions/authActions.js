@@ -8,22 +8,17 @@ import {
 const BASE_URL = config.BASE_URL
 
 export const signIn = (values) => {
-
-    console.log('values in actions', values)
-
     return (dispatch) => {
         return axios({
             method: 'post',
             url: `${BASE_URL}/authenticate/login`,
             data: values,
         }).then(response => {
-            console.log('sign-in result', response)
-
+            // console.log('sign-in result', response)
             if (response.status == 200) {
-                console.log(response.data.token)
                 AsyncStorage.setItem('user-token', response.data.token);
+                return true
             }
-        
             // dispatch({
             //     type: 'AUTH_USER',
             //     payload: jwtDecode(token)
@@ -31,6 +26,7 @@ export const signIn = (values) => {
         }).catch((error) => {
             // console.log('error: ', error)
             dispatch({ type: 'AUTH_ERROR', payload: "username or password incorrect" })
+            return false
         })
     }
 }

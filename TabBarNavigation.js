@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import TermScreen from './screens/TermScreen';
 
 const HomeStack = StackNavigator({
     Home: { screen: HomeScreen, },
@@ -15,6 +16,7 @@ const SettingsStack = StackNavigator({
     Settings: { screen: SettingsScreen },
     SignIn: { screen: SignInScreen },
     SignUp: { screen: SignUpScreen },
+    Term: { screen: TermScreen },
 });
 
 // const SignInStack = StackNavigator({
